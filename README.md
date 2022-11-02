@@ -117,7 +117,11 @@ Normalize our dataset.
 
 8. Finally, call the functions confusion_matrix(), and the classification_report() in order to evaluate the performance of our classifier.
 
-## PROGRAM 
+## PROGRAM
+```
+NAME : K.GARSHANKUMAR
+REG NO : 212219040034
+```
 
 ### Importing Libraries
 ```
@@ -127,7 +131,96 @@ from sklearn.preprocessing import LabelEncoder,StandardScaler
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 ```
+### Reading Dataset
+```
+df = pd.read_csv("./IRIS.csv")
+df
+```
+### Assiging X and Y values
+```
+# Takes first 4 columns and assign them to variable "X"
+# X = df.iloc[:,:4]
+X = df[['sepal_length', 'sepal_width', 'petal_length', 'petal_width']]
 
-## OUTPUT 
+# Takes first 5th columns and assign them to variable "Y".
+# y = df.select_dtypes(include=[object])  
+y = df['species']
+```
+### First five values of X and Y
+```
+X.head()
+
+y.head()
+```
+### Unique values in Y
+```
+print(y.unique())
+```
+### Transforming Categorical into numerical values for Y
+```
+le = LabelEncoder()
+y = le.fit_transform(y)
+
+y
+```
+### Splitting Dataset for Training and Testing
+```
+# 80% - training data and 20% - test data)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)
+```
+### Normalizing X values
+```
+# Feature scaling
+scaler = StandardScaler()  
+scaler.fit(X_train)
+
+X_train = scaler.transform(X_train)  
+X_test = scaler.transform(X_test)
+```
+### Creating MLP and classifing
+```
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)  
+mlp.fit(X_train, y_train)  
+predictions = mlp.predict(X_test) 
+```
+### Predictions
+```
+print(predictions)
+```
+### Accuracy
+```
+accuracy_score(y_test,predictions)
+```
+### Confusion Matrix
+```
+print(confusion_matrix(y_test,predictions))
+```
+### Classification Report
+```
+print(classification_report(y_test,predictions))
+```
+### OUTPUT
+### Reading Dataset
+
+![image](https://user-images.githubusercontent.com/112486797/199480455-8f995ce8-fdfb-453a-8608-7f19f5b39b3f.png)
+### First five values of X
+![image](https://user-images.githubusercontent.com/112486797/199480653-b27fa259-4861-4de0-a5f8-abd83c93c3e9.png)
+### First five values of Y
+![image](https://user-images.githubusercontent.com/112486797/199480800-ef6bfde2-73c9-42a6-8323-9a19ea72af4e.png)
+### Unique values in Y
+![image](https://user-images.githubusercontent.com/112486797/199480923-2fbe7c8f-4fcb-4635-b4d3-211c6ba5dbac.png)
+### Transforming Categorical into numerical values for Y
+![image](https://user-images.githubusercontent.com/112486797/199481025-990aaf45-5dca-403f-a669-4119635cc0de.png)
+### Predictions
+![image](https://user-images.githubusercontent.com/112486797/199481165-3846fa25-327d-47e7-b658-0bbc1be5fbd6.png)
+### Accuracy
+![image](https://user-images.githubusercontent.com/112486797/199481266-789a6594-b970-40c3-bd64-d5be315a8745.png)
+### Confusion Matrix
+![image](https://user-images.githubusercontent.com/112486797/199481356-5eb688dd-4129-431f-9386-0ef3bd1a1aa2.png)
+### Classification Report
+![image](https://user-images.githubusercontent.com/112486797/199481462-45dfaae6-1195-4c0a-93d1-a4dc02fef9c9.png)
+
+
 
 ## RESULT
+Thus a Multilayer Perceptron with Backpropagation is implemented for Multi classification
